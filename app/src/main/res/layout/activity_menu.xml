@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.franly.connectfour.MenuActivity"
+    android:background="#000000">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/borde_curvo">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:id="@+id/txtName"
+        android:layout_marginTop="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large.Inverse"
+        android:textSize="35sp"
+        android:textStyle="normal|bold"
+        android:fontFamily="monospace"
+        android:typeface="monospace"
+        android:background="@drawable/bordes"
+        android:textColor="@android:color/background_dark" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:textSize="25sp"
+        android:id="@+id/btnplay"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:onClick="onClick"
+        android:background="@android:color/holo_orange_dark"
+        android:elevation="24dp"
+        tools:fadingEdge="horizontal|vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exit"
+        android:textSize="25sp"
+        android:layout_marginTop="51dp"
+        android:id="@+id/btnexit"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:onClick="onClick"
+        android:background="@android:color/holo_orange_dark"
+        android:fadingEdge="horizontal|vertical"
+        android:layout_below="@+id/btnplay"
+        android:layout_alignLeft="@+id/btnplay"
+        android:layout_alignStart="@+id/btnplay" />
+
+
+</RelativeLayout>
+
+
+</RelativeLayout>
