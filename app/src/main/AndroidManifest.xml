@@ -3,6 +3,7 @@
     package="com.franly.connectfour">
 
     <application
+        android:fullBackupContent="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,6 +16,7 @@
         </activity>
         <activity android:name=".play" />
         <activity android:name=".Game1vs1"/>
+        <activity android:name=".GameVS"/>
     </application>
 
 </manifest>

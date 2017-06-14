@@ -9,51 +9,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.franly.connectfour.play"
-    android:background="@color/background">
+    android:background="@color/Blue">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/playopc"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="#000000"
-        android:layout_marginTop="80dp"
         android:id="@+id/textView"
+        android:layout_marginTop="65dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        />
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large.Inverse"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        android:background="@drawable/bordes"
+        android:textColor="@android:color/white" />
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
-        android:id="@+id/button2"
-        android:text="Vs CPU"
+        android:id="@+id/vs"
+        android:text=""
         style="@style/Widget.AppCompat.Button.Colored"
         android:onClick="onClick"
-        android:background="@android:color/holo_orange_dark"
-        android:layout_below="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:background="@drawable/reddisk"
+        android:layout_marginTop="23dp"
         android:textSize="24sp"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button"
-        android:textStyle="normal|bold" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:text="Vs Friend"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:onClick="onClick"
-        android:background="@android:color/holo_orange_dark"
-        android:layout_marginTop="74dp"
-        android:textSize="24sp"
+        android:textStyle="normal|bold"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:textStyle="normal|bold" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/alone"
+        android:text=""
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:onClick="onClick"
+        android:background="@drawable/yellowdisk"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:layout_below="@id/vs"
+        android:layout_alignLeft="@id/vs"
+        android:layout_alignStart="@id/vs"
+        android:layout_marginTop="22dp"
+        />
 
 
 </RelativeLayout>

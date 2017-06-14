@@ -9,7 +9,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/borde_curvo">
+    android:background="@color/Blue">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,21 +24,7 @@
         android:fontFamily="monospace"
         android:typeface="monospace"
         android:background="@drawable/bordes"
-        android:textColor="@android:color/background_dark" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/play"
-        android:textSize="25sp"
-        android:id="@+id/btnplay"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:onClick="onClick"
-        android:background="@android:color/holo_orange_dark"
-        android:elevation="24dp"
-        tools:fadingEdge="horizontal|vertical"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@android:color/white" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,11 +35,26 @@
         android:id="@+id/btnexit"
         style="@style/Widget.AppCompat.Button.Colored"
         android:onClick="onClick"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@drawable/yellowdisk"
         android:fadingEdge="horizontal|vertical"
         android:layout_below="@+id/btnplay"
         android:layout_alignLeft="@+id/btnplay"
         android:layout_alignStart="@+id/btnplay" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:textSize="25sp"
+        android:id="@+id/btnplay"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:onClick="onClick"
+        android:background="@drawable/reddisk"
+        android:elevation="24dp"
+        tools:fadingEdge="horizontal|vertical"
+        android:layout_below="@+id/txtName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp" />
 
 
 </RelativeLayout>

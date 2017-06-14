@@ -2,21 +2,23 @@ package com.franly.connectfour;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.franly.connectfour.ConectFour.Algoritmos;
 
-public class Game1vs1 extends AppCompatActivity {
+public class GameVS extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
-    private GridLayout board;
-    //ScrollView scrollView;
+    GridLayout board;
+    ScrollView scrollView;
     //tamaño de las fichas
     final int size=183;
     //Ficha jugador de turno
@@ -27,33 +29,30 @@ public class Game1vs1 extends AppCompatActivity {
     private int piece;
     //board para comparacion en el algoritmo
     private String[][] tablero = {
-    {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"}};
-    private String[][] tablerocopia;
-    private int[] positioncopia ;
+            {"O", "O", "O", "O", "O", "O", "O"},
+            {"O", "O", "O", "O", "O", "O", "O"},
+            {"O", "O", "O", "O", "O", "O", "O"},
+            {"O", "O", "O", "O", "O", "O", "O"},
+            {"O", "O", "O", "O", "O", "O", "O"},
+            {"O", "O", "O", "O", "O", "O", "O"}};
+    private final String[][] tablerocopia=tablero.clone();
+    private final int[] positioncopia =position.clone();
+    Algoritmos algoritmos;
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1vs1);
         board = (GridLayout) findViewById(R.id.GridLayout1);
-       // scrollView = (ScrollView) findViewById(R.id.show);
+        scrollView = (ScrollView) findViewById(R.id.show);
         turnplayer = (ImageView)findViewById(R.id.turnplayer);
         turnplayer.setImageResource(R.drawable.reddisk);
-        tablerocopia=tablero.clone();
-        positioncopia=position.clone();
         Ini();
-
-
     }
     private void Ini(){
-        tablero=tablerocopia.clone();
+
         board.removeAllViews();
+        scrollView.removeAllViews();
+        tablero=tablerocopia.clone();
         position=positioncopia.clone();
         piece=42;
 
@@ -77,7 +76,7 @@ public class Game1vs1 extends AppCompatActivity {
                     Play(Integer.parseInt(view.getContentDescription().toString()));
                 }
             });
-           board.addView(ImageView);
+            board.addView(ImageView);
         }
     }
     public void Play(int column) {
@@ -94,7 +93,7 @@ public class Game1vs1 extends AppCompatActivity {
         }
         if (piece != 0) {
             if (position[column] < 0) {
-                Toast.makeText(Game1vs1.this, "Columna llena", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GameVS.this, "Columna llena", Toast.LENGTH_SHORT).show();
             } else {
                 tablero[position[column]][column] = color;
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
@@ -104,9 +103,9 @@ public class Game1vs1 extends AppCompatActivity {
                 param.rowSpec = GridLayout.spec(position[column]);
                 ImageView.setLayoutParams(param);
                 board.addView(ImageView);
-                //TextView txt = new TextView(this);
-                //txt.setText(column);
-                //scrollView.addView(txt);
+                TextView txt = new TextView(this);
+                txt.setText(column);
+                scrollView.addView(txt);
                 position[column]--;
                 piece--;
                 if (Win() == 1) {
@@ -115,7 +114,6 @@ public class Game1vs1 extends AppCompatActivity {
                     }else{
                         color="Yellow";
                     }
-
                     AlertDialog alert = new AlertDialog.Builder(this)
                             .setTitle("You Win!")
                             .setMessage("Game over! "+color+" Player win.")
@@ -128,7 +126,7 @@ public class Game1vs1 extends AppCompatActivity {
                             .setNegativeButton("Back", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    startActivity(new Intent(Game1vs1.this,Game1vs1.class));
+                                    startActivity(new Intent(GameVS.this,Game1vs1.class));
                                     finish();
                                 }
                             }).create();
@@ -137,11 +135,11 @@ public class Game1vs1 extends AppCompatActivity {
 
             }
         }else {
-            Toast.makeText(Game1vs1.this,"It's Over... empate!",Toast.LENGTH_LONG).show();
+            Toast.makeText(GameVS.this,"It's Over... empate!",Toast.LENGTH_LONG).show();
         }
     }
     private int Win(){
-        Algoritmos algoritmos = new Algoritmos(tablero);
+        algoritmos = new Algoritmos(tablero);
         if (algoritmos.LHorizontal() == 1 || algoritmos.LVertical() == 1 || algoritmos.LDiagonal() == 1) {
             return 1;
         }
@@ -158,5 +156,6 @@ public class Game1vs1 extends AppCompatActivity {
                 break;
         }
     }
-    }
 
+
+}
