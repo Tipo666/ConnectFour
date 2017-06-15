@@ -9,32 +9,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-
 import android.widget.Toast;
 import com.franly.connectfour.ConectFour.Algoritmos;
 
 public class Game1vs1 extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
     private GridLayout board;
-    //ScrollView scrollView;
+    //private ScrollView scrollView;
+    //private LinearLayout linear;
     //tamaño de las fichas
     final int size=183;
     //Ficha jugador de turno
     private ImageView turnplayer ;
+
+    private int[] position = new int[7];
     //posiciones disponibles del tablero
-    private int[] position = {5, 5, 5, 5, 5, 5, 5};
     //total de fichas
     private int piece;
     //board para comparacion en el algoritmo
-    private String[][] tablero = {
+    private String[][] tablero=new String[6][7];
+   /* {"O", "O", "O", "O", "O", "O", "O"},
     {"O", "O", "O", "O", "O", "O", "O"},
     {"O", "O", "O", "O", "O", "O", "O"},
     {"O", "O", "O", "O", "O", "O", "O"},
     {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"},
-    {"O", "O", "O", "O", "O", "O", "O"}};
-    private String[][] tablerocopia;
-    private int[] positioncopia ;
+    {"O", "O", "O", "O", "O", "O", "O"}};*/
 
 
     @Override
@@ -42,21 +41,25 @@ public class Game1vs1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1vs1);
         board = (GridLayout) findViewById(R.id.GridLayout1);
-       // scrollView = (ScrollView) findViewById(R.id.show);
+        //scrollView = (ScrollView) findViewById(R.id.show);
         turnplayer = (ImageView)findViewById(R.id.turnplayer);
         turnplayer.setImageResource(R.drawable.reddisk);
-        tablerocopia=tablero.clone();
-        positioncopia=position.clone();
         Ini();
 
 
     }
     private void Ini(){
-        tablero=tablerocopia.clone();
         board.removeAllViews();
-        position=positioncopia.clone();
+        for(int x=0;x<7;x++){
+            position[x]=5;
+        }
+        for(int x=0;x<6;x++){
+            for(int y=0;y<7;y++){
+                tablero[x][y]="O";
+            }
+        }
         piece=42;
-
+        //scrollView.addView(linear);
         final int column = 7;
         int row = piece / column;
         board.setColumnCount(column);
@@ -104,12 +107,12 @@ public class Game1vs1 extends AppCompatActivity {
                 param.rowSpec = GridLayout.spec(position[column]);
                 ImageView.setLayoutParams(param);
                 board.addView(ImageView);
-                //TextView txt = new TextView(this);
-                //txt.setText(column);
-                //scrollView.addView(txt);
+                /*TextView txt = new TextView(findViewById(R.id.textView).getContext());
+                txt.setText(column);
+                linear.addView(txt,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));*/
                 position[column]--;
                 piece--;
-                if (Win() == 1) {
+                if (Win()) {
                     if(color.equals("R")){
                         color="Red";
                     }else{
@@ -140,12 +143,10 @@ public class Game1vs1 extends AppCompatActivity {
             Toast.makeText(Game1vs1.this,"It's Over... empate!",Toast.LENGTH_LONG).show();
         }
     }
-    private int Win(){
+    private boolean Win(){
         Algoritmos algoritmos = new Algoritmos(tablero);
-        if (algoritmos.LHorizontal() == 1 || algoritmos.LVertical() == 1 || algoritmos.LDiagonal() == 1) {
-            return 1;
-        }
-        return 0;
+        return (algoritmos.LHorizontal() == 1 || algoritmos.LVertical() == 1 || algoritmos.LDiagonal() == 1);
+
     }
     public void OnCLickButton(View view){
         Button btn = (Button)view;

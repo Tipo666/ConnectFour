@@ -18,7 +18,9 @@ import com.franly.connectfour.ConectFour.Algoritmos;
 public class GameVS extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
     GridLayout board;
+
     ScrollView scrollView;
+    //Random randomplay = new Random();
     //tamaño de las fichas
     final int size=183;
     //Ficha jugador de turno
@@ -37,7 +39,6 @@ public class GameVS extends AppCompatActivity {
             {"O", "O", "O", "O", "O", "O", "O"}};
     private final String[][] tablerocopia=tablero.clone();
     private final int[] positioncopia =position.clone();
-    Algoritmos algoritmos;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,32 +63,32 @@ public class GameVS extends AppCompatActivity {
         board.setRowCount(row);
         for(int c = 0; c < 7; c++)
         {
-            ImageView ImageView = new ImageView(this);
-            ImageView.setImageResource(R.drawable.fondodisk);
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.fondodisk);
             GridLayout.LayoutParams param =new GridLayout.LayoutParams();
             param.height = size;
             param.width =  size;
             param.columnSpec = GridLayout.spec(c);
             param.rowSpec = GridLayout.spec(0);
-            ImageView.setLayoutParams (param);
-            ImageView.setContentDescription(""+c);
-            ImageView.setOnClickListener(new View.OnClickListener(){
+            imageView.setLayoutParams (param);
+            imageView.setContentDescription(""+c);
+            imageView.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
                     Play(Integer.parseInt(view.getContentDescription().toString()));
                 }
             });
-            board.addView(ImageView);
+            board.addView(imageView);
         }
     }
     public void Play(int column) {
-        ImageView ImageView = new ImageView(this);
+        ImageView imageView = new ImageView(this);
         String color;
         if (piece % 2 == 0) {
-            ImageView.setImageResource(R.drawable.reddisk);
+            imageView.setImageResource(R.drawable.reddisk);
             turnplayer.setImageResource(R.drawable.yellowdisk);
             color = "R";
         } else {
-            ImageView.setImageResource(R.drawable.yellowdisk);
+            imageView.setImageResource(R.drawable.yellowdisk);
             turnplayer.setImageResource(R.drawable.reddisk);
             color = "Y";
         }
@@ -95,20 +96,11 @@ public class GameVS extends AppCompatActivity {
             if (position[column] < 0) {
                 Toast.makeText(GameVS.this, "Columna llena", Toast.LENGTH_SHORT).show();
             } else {
-                tablero[position[column]][column] = color;
-                GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-                param.height = size;
-                param.width = size;
-                param.columnSpec = GridLayout.spec(column);
-                param.rowSpec = GridLayout.spec(position[column]);
-                ImageView.setLayoutParams(param);
-                board.addView(ImageView);
-                TextView txt = new TextView(this);
-                txt.setText(column);
-                scrollView.addView(txt);
-                position[column]--;
-                piece--;
-                if (Win() == 1) {
+                if(color.equals("R"))
+                PlayRed(column,color,imageView);
+                if(color.equals("Y"))
+                PlayRed(column,color,imageView);
+                if (Win()) {
                     if(color.equals("R")){
                         color="Red";
                     }else{
@@ -138,12 +130,10 @@ public class GameVS extends AppCompatActivity {
             Toast.makeText(GameVS.this,"It's Over... empate!",Toast.LENGTH_LONG).show();
         }
     }
-    private int Win(){
-        algoritmos = new Algoritmos(tablero);
-        if (algoritmos.LHorizontal() == 1 || algoritmos.LVertical() == 1 || algoritmos.LDiagonal() == 1) {
-            return 1;
-        }
-        return 0;
+    private boolean Win(){
+        Algoritmos algoritmos = new Algoritmos(tablero);
+        return (algoritmos.LHorizontal() == 1 || algoritmos.LVertical() == 1 || algoritmos.LDiagonal() == 1);
+
     }
     public void OnCLickButton(View view){
         Button btn = (Button)view;
@@ -156,6 +146,36 @@ public class GameVS extends AppCompatActivity {
                 break;
         }
     }
-
+    public void PlayRed(int column,String color,ImageView imageView){
+        tablero[position[column]][column] = color;
+        GridLayout.LayoutParams param = new GridLayout.LayoutParams();
+        param.height = size;
+        param.width = size;
+        param.columnSpec = GridLayout.spec(column);
+        param.rowSpec = GridLayout.spec(position[column]);
+        imageView.setLayoutParams(param);
+        board.addView(imageView);
+        TextView txt = new TextView(this);
+        txt.setText(column);
+        scrollView.addView(txt);
+        position[column]--;
+        piece--;
+    }
+    /*public void PlayYellow(int column,String color,ImageView imageView){
+        int positionr=randomplay.nextInt();
+        tablero[position[column]][column] = color;
+        GridLayout.LayoutParams param = new GridLayout.LayoutParams();
+        param.height = size;
+        param.width = size;
+        param.columnSpec = GridLayout.spec(column);
+        param.rowSpec = GridLayout.spec(position[column]);
+        imageView.setLayoutParams(param);
+        board.addView(imageView);
+        TextView txt = new TextView(this);
+        txt.setText(column);
+        scrollView.addView(txt);
+        position[column]--;
+        piece--;
+    }*/
 
 }
