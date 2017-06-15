@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class Game1vs1 extends AppCompatActivity {
     {"O", "O", "O", "O", "O", "O", "O"},
     {"O", "O", "O", "O", "O", "O", "O"}};*/
 
+    //Animation
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,8 @@ public class Game1vs1 extends AppCompatActivity {
         board = (GridLayout) findViewById(R.id.GridLayout1);
         //scrollView = (ScrollView) findViewById(R.id.show);
         turnplayer = (ImageView)findViewById(R.id.turnplayer);
-        turnplayer.setImageResource(R.drawable.reddisk);
+        turnplayer.setImageResource(R.mipmap.reddisk);
+
         Ini();
 
 
@@ -87,12 +90,12 @@ public class Game1vs1 extends AppCompatActivity {
         ImageView ImageView = new ImageView(this);
         String color;
         if (piece % 2 == 0) {
-            ImageView.setImageResource(R.drawable.reddisk);
-            turnplayer.setImageResource(R.drawable.yellowdisk);
+            ImageView.setImageResource(R.mipmap.reddisk);
+            turnplayer.setImageResource(R.mipmap.yellowdisk);
             color = "R";
         } else {
-            ImageView.setImageResource(R.drawable.yellowdisk);
-            turnplayer.setImageResource(R.drawable.reddisk);
+            ImageView.setImageResource(R.mipmap.yellowdisk);
+            turnplayer.setImageResource(R.mipmap.reddisk);
             color = "Y";
         }
         if (piece != 0) {
@@ -107,9 +110,6 @@ public class Game1vs1 extends AppCompatActivity {
                 param.rowSpec = GridLayout.spec(position[column]);
                 ImageView.setLayoutParams(param);
                 board.addView(ImageView);
-                /*TextView txt = new TextView(findViewById(R.id.textView).getContext());
-                txt.setText(column);
-                linear.addView(txt,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));*/
                 position[column]--;
                 piece--;
                 if (Win()) {
