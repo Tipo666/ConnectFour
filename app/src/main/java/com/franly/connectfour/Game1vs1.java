@@ -27,6 +27,8 @@ public class Game1vs1 extends AppCompatActivity {
     private int piece;
     //board para comparacion en el algoritmo
     private String[][] tablero=new String[6][7];
+    //sonido
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class Game1vs1 extends AppCompatActivity {
         //scrollView = (ScrollView) findViewById(R.id.show);
         turnplayer = (ImageView)findViewById(R.id.turnplayer);
         Ini();
-
 
     }
     private void Ini() {
@@ -62,7 +63,7 @@ public class Game1vs1 extends AppCompatActivity {
             for (int y = 0; y < 6; y++) {
 
                 ImageView ImageView = new ImageView(this);
-                ImageView.setImageResource(R.drawable.fondodisk);
+                ImageView.setImageResource(R.mipmap.fondotransparente);
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
                 param.height = size;
                 param.width = size;
@@ -108,15 +109,13 @@ public class Game1vs1 extends AppCompatActivity {
                 param.rowSpec = GridLayout.spec(position[column]);
                 position[column]--;
                 piece--;
-                MediaPlayer disksound= MediaPlayer.create(Game1vs1.this,R.raw.coin);
-                disksound.start();
+                mkSound();
                 if (Win()) {
                     if(color.equals("R")){
                         color="Red";
                     }else{
                         color="Yellow";
                     }
-
                     AlertDialog alert = new AlertDialog.Builder(this)
                             .setTitle("You Win!")
                             .setMessage("Game over! "+color+" Player win.")
@@ -155,6 +154,10 @@ public class Game1vs1 extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+    private void mkSound(){
+        MediaPlayer disksound = MediaPlayer.create(Game1vs1.this,R.raw.coin);
+        disksound.start();
     }
     }
 

@@ -19,8 +19,8 @@ public class MenuActivity extends AppCompatActivity {
      Button btn = (Button)(view);
      Intent intent;
         switch (btn.getId()){
-            case R.id.btnexit:finish();break;
-            case R.id.btnplay:intent = new Intent(MenuActivity.this,play.class);startActivity(intent);break;
+            case R.id.btnvs1:intent = new Intent(MenuActivity.this,Game1vs1.class);startActivity(intent);break;
+            case R.id.btnvscpu:intent = new Intent(MenuActivity.this,GameVS.class);startActivity(intent);break;
             default:break;
 
         }

@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">Connect Four</string>
 
-    <string name="play">Play</string>
+    <string name="play">1 VS 1</string>
+    <string name="cpu">VS CPU</string>
     <string name="exit">Exit</string>
-
-    <string name="vsfriend">Friendly</string>
-    <string name="vscpu">Vs the CPU</string>
 
     <string name="playopc">Select an Option to play</string>
     <string name="Disk">Disk</string>

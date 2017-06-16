@@ -16,12 +16,12 @@ import android.widget.Toast;
 import java.util.Random;
 import com.franly.connectfour.ConectFour.Algoritmos;
 
-
 public class GameVS extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
     GridLayout board;
+
     ScrollView scrollView;
-    //Random randomplay = new Random();
+
     //tamaño de las fichas
     final int size=183;
     //posicion de la cima de cada columna
@@ -30,6 +30,7 @@ public class GameVS extends AppCompatActivity {
     private int piece;
     //board para comparacion en el algoritmo
     private String[][] tablero=new String[6][7];
+    final MediaPlayer disksound= MediaPlayer.create(GameVS.this,R.raw.coin);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,7 @@ public class GameVS extends AppCompatActivity {
                 Toast.makeText(GameVS.this, "Columna llena", Toast.LENGTH_SHORT).show();
             } else {
                 Playdisk(column,"R",imageView);
+                disksound.start();
                 Ganar("R");
                 PlayCPU();
             }

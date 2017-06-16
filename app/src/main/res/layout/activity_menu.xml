@@ -29,32 +29,35 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/exit"
+        android:text="@string/cpu"
         android:textSize="25sp"
         android:layout_marginTop="51dp"
-        android:id="@+id/btnexit"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btnvscpu"
         android:onClick="onClick"
         android:background="@drawable/yellowdisk"
         android:fadingEdge="horizontal|vertical"
-        android:layout_below="@+id/btnplay"
-        android:layout_alignLeft="@+id/btnplay"
-        android:layout_alignStart="@+id/btnplay" />
+        android:layout_below="@+id/btnvs1"
+        android:layout_alignLeft="@+id/btnvs1"
+        android:layout_alignStart="@+id/btnvs1"
+        android:textColor="@android:color/background_light"
+        android:textStyle="normal|bold" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/play"
         android:textSize="25sp"
-        android:id="@+id/btnplay"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btnvs1"
         android:onClick="onClick"
         android:background="@drawable/reddisk"
         android:elevation="24dp"
         tools:fadingEdge="horizontal|vertical"
         android:layout_below="@+id/txtName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp" />
+        android:layout_marginTop="33dp"
+        android:textColor="@android:color/background_light"
+        android:textStyle="normal|bold"
+        android:fontFamily="sans-serif-medium" />
 
 
 </RelativeLayout>
