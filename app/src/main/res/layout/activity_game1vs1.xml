@@ -43,12 +43,14 @@
            android:layout_height="wrap_content"
            android:columnCount="7"
            android:rowCount="6"
+           android:animateLayoutChanges="true"
            android:background="@android:color/white">
        </GridLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/fondotablero"/>
+            android:background="@drawable/fondotablero"
+            android:contentDescription="@string/vsfriend"/>
     </FrameLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -64,14 +66,16 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
         <Button
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="35dp"
             android:text="@string/restart"
             style="@android:style/Widget.Button"
             android:onClick="OnCLickButton"
             android:id="@+id/restart"/>
         <Button
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="35dp"
             android:text="@string/exit"
             style="@android:style/Widget.Button"
