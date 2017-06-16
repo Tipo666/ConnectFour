@@ -11,12 +11,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.franly.connectfour.ConectFour.Algoritmos;
 
 public class Game1vs1 extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
     private GridLayout board;
+    //motrar jugadas
+    private ScrollView allplaysmade;
+    LinearLayout ll;
     //tamaño de las fichas
     final int size=183;
     //Ficha jugador de turno
@@ -35,7 +41,7 @@ public class Game1vs1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1vs1);
         board = (GridLayout) findViewById(R.id.GridLayout1);
-        //scrollView = (ScrollView) findViewById(R.id.show);
+        allplaysmade = (ScrollView) findViewById(R.id.show);
         turnplayer = (ImageView)findViewById(R.id.turnplayer);
         Ini();
 
@@ -44,8 +50,11 @@ public class Game1vs1 extends AppCompatActivity {
         //bgsound.start();
         turnplayer.setImageResource(R.mipmap.reddisk);
         board.removeAllViews();
+        allplaysmade.removeAllViews();
+        ll= new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        allplaysmade.addView(ll);
         for (int x = 0; x < 7; x++) {
-
             position[x] = 5;
         }
         for (int x = 0; x < 6; x++) {
@@ -110,6 +119,7 @@ public class Game1vs1 extends AppCompatActivity {
                 position[column]--;
                 piece--;
                 mkSound();
+                addplaymade(column,position[column]+1);
                 if (Win()) {
                     if(color.equals("R")){
                         color="Red";
@@ -158,6 +168,11 @@ public class Game1vs1 extends AppCompatActivity {
     private void mkSound(){
         MediaPlayer disksound = MediaPlayer.create(Game1vs1.this,R.raw.coin);
         disksound.start();
+    }
+    private void addplaymade(int column,int row){
+        TextView txt = new TextView(this);
+        txt.setText("Columna:"+column+1+" Fila:"+row+1);
+        ll.addView(txt);
     }
     }
 

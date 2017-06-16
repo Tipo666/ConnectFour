@@ -3,6 +3,7 @@ package com.franly.connectfour;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Random;
 import com.franly.connectfour.ConectFour.Algoritmos;
@@ -19,9 +22,8 @@ import com.franly.connectfour.ConectFour.Algoritmos;
 public class GameVS extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
     GridLayout board;
-
-    ScrollView scrollView;
-
+    ScrollView allplaysmade;
+    LinearLayout ll;
     //tamaño de las fichas
     final int size=183;
     //posicion de la cima de cada columna
@@ -30,21 +32,25 @@ public class GameVS extends AppCompatActivity {
     private int piece;
     //board para comparacion en el algoritmo
     private String[][] tablero=new String[6][7];
-    final MediaPlayer disksound= MediaPlayer.create(GameVS.this,R.raw.coin);
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1vs1);
         board = (GridLayout) findViewById(R.id.GridLayout1);
-        scrollView = (ScrollView) findViewById(R.id.show);
+        allplaysmade = (ScrollView) findViewById(R.id.show);
         ImageView turnplayer = (ImageView) findViewById(R.id.turnplayer);
         turnplayer.setImageResource(R.drawable.reddisk);
         Ini();
     }
+
     private void Ini(){
         board.removeAllViews();
+        allplaysmade.removeAllViews();
+        ll= new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        allplaysmade.addView(ll);
         for (int x = 0; x < 7; x++) {
-
             position[x] = 5;
         }
         for (int x = 0; x < 6; x++) {
@@ -52,6 +58,8 @@ public class GameVS extends AppCompatActivity {
                 tablero[x][y] = "O";
             }
         }
+        piece = 42;
+        //scrollView.addView(linear);
         final int column = 7;
         int row = piece / column;
         board.setColumnCount(column);
@@ -60,7 +68,7 @@ public class GameVS extends AppCompatActivity {
             for (int y = 0; y < 6; y++) {
 
                 ImageView ImageView = new ImageView(this);
-                ImageView.setImageResource(R.drawable.fondodisk);
+                ImageView.setImageResource(R.mipmap.fondotransparente);
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
                 param.height = size;
                 param.width = size;
@@ -85,9 +93,9 @@ public class GameVS extends AppCompatActivity {
                 Toast.makeText(GameVS.this, "Columna llena", Toast.LENGTH_SHORT).show();
             } else {
                 Playdisk(column,"R",imageView);
-                disksound.start();
                 Ganar("R");
-                PlayCPU();
+                esperarParaJugarCPU();
+
             }
         }else {
             Toast.makeText(GameVS.this,"It's Over... empate!",Toast.LENGTH_LONG).show();
@@ -97,17 +105,6 @@ public class GameVS extends AppCompatActivity {
         Algoritmos algoritmos = new Algoritmos(tablero);
         return (algoritmos.LHorizontal() == 1 || algoritmos.LVertical() == 1 || algoritmos.LDiagonal() == 1);
 
-    }
-    public void OnCLickButton(View view){
-        Button btn = (Button)view;
-        switch (btn.getId()){
-            case R.id.restart:
-                Ini();
-                break;
-            case R.id.exit:
-                finish();
-                break;
-        }
     }
     private void PlayCPU(){
         ImageView imageView = new ImageView(this);
@@ -162,7 +159,34 @@ public class GameVS extends AppCompatActivity {
         param.rowSpec = GridLayout.spec(position[column]);
         position[column]--;
         piece--;
-        MediaPlayer disksound= MediaPlayer.create(GameVS.this,R.raw.coin);
+        mkSound();
+        addplaymade(column,position[column]+1);
+    }
+    public void OnCLickButton(View view){
+        Button btn = (Button)view;
+        switch (btn.getId()){
+            case R.id.restart:
+                Ini();
+                break;
+            case R.id.exit:
+                finish();
+                break;
+        }
+    }
+    private void addplaymade(int column,int row){
+        TextView txt = new TextView(this);
+        txt.setText("Columna:"+column+1+" Fila:"+row+1);
+        ll.addView(txt);
+    }
+    private void mkSound(){
+        MediaPlayer disksound = MediaPlayer.create(GameVS.this,R.raw.coin);
         disksound.start();
     }
+    public void esperarParaJugarCPU() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+        public void run() {
+            PlayCPU();
+            }
+        }, 2000);}
 }
