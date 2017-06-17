@@ -17,14 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.franly.connectfour.ConectFour.Algoritmos;
 
+
 public class Game1vs1 extends AppCompatActivity {
     //Declaracion de mi Tablero el cual esta En el layout activity_game1vs1(TableLayout)
     private GridLayout board;
     //motrar jugadas
     private ScrollView allplaysmade;
     LinearLayout ll;
-    //tamaño de las fichas
-    final int size=183;
     //Ficha jugador de turno
     private ImageView turnplayer ;
     //posicion de la cima de cada columna
@@ -33,7 +32,7 @@ public class Game1vs1 extends AppCompatActivity {
     private int piece;
     //board para comparacion en el algoritmo
     private String[][] tablero=new String[6][7];
-    //sonido
+    final int size= 183;
 
 
     @Override
@@ -70,22 +69,21 @@ public class Game1vs1 extends AppCompatActivity {
         board.setRowCount(row);
         for (int c = 0; c < 7; c++) {
             for (int y = 0; y < 6; y++) {
-
-                ImageView ImageView = new ImageView(this);
-                ImageView.setImageResource(R.mipmap.fondotransparente);
+                ImageView imageView = new ImageView(this);
+                imageView.setImageResource(R.drawable.fondotransparente);
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
                 param.height = size;
                 param.width = size;
                 param.columnSpec = GridLayout.spec(c);
                 param.rowSpec = GridLayout.spec(y);
-                ImageView.setLayoutParams(param);
-                ImageView.setContentDescription("" + c);
-                ImageView.setOnClickListener(new View.OnClickListener() {
+                imageView.setLayoutParams(param);
+                imageView.setContentDescription("" + c);
+                imageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         Play(Integer.parseInt(view.getContentDescription().toString()));
                     }
                 });
-                board.addView(ImageView);
+                board.addView(imageView);
             }
         }
     }
@@ -93,12 +91,12 @@ public class Game1vs1 extends AppCompatActivity {
         ImageView ImageView = new ImageView(this);
         String color;
         if (piece % 2 == 0) {
-            ImageView.setImageResource(R.mipmap.reddisk);
-            turnplayer.setImageResource(R.mipmap.yellowdisk);
+            ImageView.setImageResource(R.drawable.reddisk);
+            turnplayer.setImageResource(R.drawable.yellowdisk);
             color = "R";
         } else {
-            ImageView.setImageResource(R.mipmap.yellowdisk);
-            turnplayer.setImageResource(R.mipmap.reddisk);
+            ImageView.setImageResource(R.drawable.yellowdisk);
+            turnplayer.setImageResource(R.drawable.reddisk);
             color = "Y";
         }
         if (piece != 0) {
@@ -108,8 +106,8 @@ public class Game1vs1 extends AppCompatActivity {
                 Animation anim= AnimationUtils.loadAnimation(this, R.anim.move);
                 tablero[position[column]][column] = color;
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-                param.height = size;
-                param.width = size;
+                param.height = board.getHeight()/6;
+                param.width = board.getHeight()/6;
                 param.columnSpec = GridLayout.spec(column);
                 param.rowSpec = GridLayout.spec(5);
                 ImageView.setLayoutParams(param);

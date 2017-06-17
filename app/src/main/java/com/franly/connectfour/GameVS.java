@@ -25,7 +25,7 @@ public class GameVS extends AppCompatActivity {
     ScrollView allplaysmade;
     LinearLayout ll;
     //tamaño de las fichas
-    final int size=183;
+    final int size = 183 ;
     //posicion de la cima de cada columna
     private int[] position = new int[7];
     //total de fichas
@@ -109,13 +109,13 @@ public class GameVS extends AppCompatActivity {
     private void PlayCPU(){
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.mipmap.yellowdisk);
+        //MejorOpc(imageView);
         Random r = new Random();
-        int ramdom=0;
-        while(position[ramdom]<0){
-        ramdom = r.nextInt(6);
+        int ramdom = 0;
+        while (position[ramdom] < 0) {
+            ramdom = r.nextInt(6);
+            Playdisk(ramdom, "Y", imageView);
         }
-
-        Playdisk(ramdom,"Y",imageView);
         Ganar("Y");
         piece--;
     }
@@ -149,8 +149,8 @@ public class GameVS extends AppCompatActivity {
         Animation anim= AnimationUtils.loadAnimation(this, R.anim.move);
         tablero[position[column]][column] = color;
         GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-        param.height = size;
-        param.width = size;
+        param.height = board.getHeight()/6;
+        param.width = board.getHeight()/6;
         param.columnSpec = GridLayout.spec(column);
         param.rowSpec = GridLayout.spec(5);
         imageView.setLayoutParams(param);
@@ -189,4 +189,53 @@ public class GameVS extends AppCompatActivity {
             PlayCPU();
             }
         }, 2000);}
+    /*private void MejorOpc(ImageView imagenView) {
+        int counter = 0;
+        for (int x = 0; x <= 6; x++) {
+            for (int y = 0; y <= 4; y++) {
+                if (!tablero[y][x].equals("O")) {
+                    if (tablero[y][x].equals(tablero[y + 1][x])) {
+                        counter++;
+                        if (counter == 2) {
+                            Playdisk(x, "Y", imagenView);
+                            break;
+                        }
+                    } else {
+                        counter = 0;
+                    }
+                } else {
+                    counter = 0;
+                }
+            }
+        }
+        //horizontal
+        if (counter == 0) {
+            for (int y = 0; y <= 5; y++) {
+                for (int x = 0; x <= 5; x++) {
+                    if (!tablero[y][x].equals("O")) {
+                        if (tablero[y][x].equals(tablero[y][x + 1])) {
+                            counter++;
+                            if (counter == 2) {
+                                Playdisk(x + 2, "Y", imagenView);
+                                break;
+                            }
+                        } else {
+                            counter = 0;
+                        }
+                    } else {
+                        counter = 0;
+                    }
+                }
+            }
+        } else {
+
+            Random r = new Random();
+            int ramdom = 0;
+            while (position[ramdom] < 0) {
+                ramdom = r.nextInt(6);
+                Playdisk(ramdom, "Y", imagenView);
+            }
+
+        }
+    }*/
 }
